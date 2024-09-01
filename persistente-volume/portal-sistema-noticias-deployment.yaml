@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-sistema-noticias-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sistemas-noticias
+  template:
+    metadata:
+      labels:
+        app: sistemas-noticias
+    spec:
+      containers:
+      - name: portal-sistema-noticias-conteiner
+        image: aluracursos/sistema-noticias:1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "512m"
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: sistema-configmap
